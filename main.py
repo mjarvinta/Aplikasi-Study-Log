@@ -33,10 +33,43 @@ def tambah_catatan():
     print("Catatan berhasil ditambahkan ✅")
 
 def lihat_catatan():
-    pass
+    """Menampilkan semua catatan belajar secara rapi.
+
+    Jika belum ada catatan, tampilkan pesan yang sesuai.
+    """
+    print("\n--- Daftar Catatan Belajar ---")
+    if not catatan:
+        print("Belum ada catatan. Tambahkan catatan belajar dulu.")
+        return
+
+    for i, c in enumerate(catatan, start=1):
+        mapel = c.get('mapel', '')
+        topik = c.get('topik', '')
+        durasi = c.get('durasi', 0)
+        print(f"{i}. {mapel} - {topik} ({durasi} menit)")
+
+    print(f"\nTotal catatan: {len(catatan)}")
 
 def total_waktu():
-    pass
+    """Menghitung total durasi semua catatan dan menampilkannya.
+
+    Menampilkan hasil dalam menit, dan juga konversi ke jam+menit jika >= 60 menit.
+    """
+    print("\n--- Total Waktu Belajar ---")
+    if not catatan:
+        print("Belum ada catatan. Tambahkan catatan belajar dulu.")
+        return 0
+
+    total = sum(c.get('durasi', 0) for c in catatan)
+    jam = total // 60
+    menit = total % 60
+
+    if jam > 0:
+        print(f"Total waktu belajar: {total} menit ({jam} jam {menit} menit)")
+    else:
+        print(f"Total waktu belajar: {total} menit")
+
+    return total
 
 def menu():
     print("\n=== Study Log App ===")
